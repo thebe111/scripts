@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+# DISPLAY=:0
+# */1 * * * * export $(dbus-launch) && python3 ~/scripts/notifications.py > /tmp/notifications.log 2>&1
+
 import gi
 
 gi.require_version("Notify", "0.7")
@@ -19,4 +23,3 @@ with open("/sys/class/power_supply/BAT0/capacity", "r") as battery_level:
                 )
                 battery_notification.set_urgency(Notify.Urgency.CRITICAL)
                 battery_notification.show()
-
