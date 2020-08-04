@@ -17,7 +17,7 @@ Notify.init("Notifications Script")
 with open("/sys/class/power_supply/BAT0/capacity", "r") as battery_level:
     if int(battery_level.read()) < 20:
         with open("/sys/class/power_supply/BAT0/status", "r") as battery_status:
-            if battery_status.read() != "Discharging":
+            if battery_status.read().replace('\n', '') == "Discharging":
                 battery_notification = Notify.Notification.new(
                     "BATTERY STATUS", "Connect your charger"
                 )
