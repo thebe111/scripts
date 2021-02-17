@@ -2,7 +2,7 @@
 
 import sys
 import os
-import getopt
+#  import getopt
 
 def exec(args):
     link, name, path = args[0:]
