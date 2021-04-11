@@ -1,0 +1,11 @@
+#!/usr/bin/env perl
+
+my ($uri, $name, $folder) = @ARGV;
+
+if ($#ARGV + 1 != 3) { die "usage: $0 uri name folder\n"; }
+
+system("youtube-dl -x $uri -o $name.opus --audio-format opus --no-playlist");
+system("mv $name.opus $folder");
+
+print "[ok] $name.opus\n";
+
