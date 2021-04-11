@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+
+# DISPLAY=:0
+# */1 * * * * export $(dbus-launch) && /usr/local/bin/notifier > /tmp/battery_notifier.log 2>&1
+
+use strict;
+use warnings;
+use Gtk3::Notify -init, "battery_notifier";
+
+my $title = "BATTERY STATUS";
+my $icon;
+my $msg;
+
+my $status = "/sys/class/power_supply/BAT0/status";
+my $capacity = "/sys/class/power_supply/BAT0/capacity";
+
+open(my $fh_capacity, '<', $capacity) or die $!;
+open(my $fh_status, '<', $status) or die $!;
+
+if (<$fh_capacity> < 20 and <$fh_status> eq "Discharging\n") {
+   $msg = "connect your charger!";
+
+   my $notifier = Gtk3::Notify::Notification->new($title, $msg, $icon);
+   $notifier->show;
+}
+
+close($fh_capacity);
+close($fh_status);
+
