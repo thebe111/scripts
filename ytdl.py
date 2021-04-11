@@ -7,7 +7,8 @@ import os
 def exec(args):
     link, name, path = args[0:]
 
-    os.system(f"youtube-dl -x {link} -o {name}.opus --audio-format opus")
+    os.system(f"youtube-dl -x {link} -o {name}.opus --audio-format opus \
+              --no-playlist")
     os.system(f"mv {name}.opus {path}")
 
     print(f"[ok] {name}.opus")
